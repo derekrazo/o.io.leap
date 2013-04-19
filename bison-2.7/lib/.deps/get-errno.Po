@@ -1,0 +1,18 @@
+get-errno.o get-errno.o: get-errno.c config.h get-errno.h \
+  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/sys/cdefs.h \
+  /usr/include/sys/_symbol_aliasing.h \
+  /usr/include/sys/_posix_availability.h
+
+config.h:
+
+get-errno.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/sys/_symbol_aliasing.h:
+
+/usr/include/sys/_posix_availability.h:
