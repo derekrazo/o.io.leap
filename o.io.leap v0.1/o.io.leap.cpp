@@ -151,6 +151,7 @@ void oleap_bang(t_oleap *x)
 			const double length = finger.length();
 			const bool isTool = finger.isTool();
             
+            
             /*
             string names [14]= {“xpos”,”ypos”,”zpos”,”xdir”,”ydir”,”zdir”,”xvel”,”yvel”,”zvel,finger_length”,”istool_mes”};
             
@@ -193,37 +194,37 @@ void oleap_bang(t_oleap *x)
             osc_message_u_setAddress(xpos, buff);
             
             sprintf(buff,"/%d/ypos",j);
-            osc_message_u_setAddress(ypos, "/ypos");
+            osc_message_u_setAddress(ypos, buff);
             
             sprintf(buff,"/%d/zpos",j);
-            osc_message_u_setAddress(zpos, "/zpos");
+            osc_message_u_setAddress(zpos, buff);
             
             sprintf(buff,"/%d/xdir",j);
-            osc_message_u_setAddress(xdir, "/xdir");
+            osc_message_u_setAddress(xdir, buff);
             
             sprintf(buff,"/%d/ydir",j);
-            osc_message_u_setAddress(ydir, "/ydir");
+            osc_message_u_setAddress(ydir, buff);
             
             sprintf(buff,"/%d/zdir",j);
-            osc_message_u_setAddress(zdir, "/zdir");
+            osc_message_u_setAddress(zdir, buff);
             
             sprintf(buff,"/%d/xvel",j);
-            osc_message_u_setAddress(xvel, "/xvel");
+            osc_message_u_setAddress(xvel, buff);
             
             sprintf(buff,"/%d/yvel",j);
-            osc_message_u_setAddress(yvel, "/yvel");
+            osc_message_u_setAddress(yvel, buff);
             
             sprintf(buff,"/%d/zvel",j);
-            osc_message_u_setAddress(zvel, "/zvel");
+            osc_message_u_setAddress(zvel, buff);
             
             sprintf(buff,"/%d/finger_width",j);
-            osc_message_u_setAddress(finger_width, "/finger_width");
+            osc_message_u_setAddress(finger_width, buff);
             
             sprintf(buff,"/%d/finger_length",j);
-            osc_message_u_setAddress(finger_length, "/finger_length");
+            osc_message_u_setAddress(finger_length, buff);
             
             sprintf(buff,"/%d/is_tool",j);
-            osc_message_u_setAddress(istool_mes, "/is_tool");
+            osc_message_u_setAddress(istool_mes, buff);
             
             t_osc_atom_u* fid_atom = osc_atom_u_alloc();
             t_osc_atom_u* hid_atom = osc_atom_u_alloc();
@@ -255,13 +256,13 @@ void oleap_bang(t_oleap *x)
             osc_atom_u_setInt32(zpos_atom, position.z);
             osc_message_u_appendAtom(zpos, zpos_atom);
             
-            osc_atom_u_setInt32(xdir_atom, direction.x);
+            osc_atom_u_setFloat(xdir_atom, direction.x);
             osc_message_u_appendAtom(xdir, xdir_atom);
             
-            osc_atom_u_setInt32(ydir_atom, direction.y);
+            osc_atom_u_setFloat(ydir_atom, direction.y);
             osc_message_u_appendAtom(ydir, ydir_atom);
             
-            osc_atom_u_setInt32(zdir_atom, direction.z);
+            osc_atom_u_setFloat(zdir_atom, direction.z);
             osc_message_u_appendAtom(zdir, zdir_atom);
             
             osc_atom_u_setInt32(xvel_atom, velocity.x);
