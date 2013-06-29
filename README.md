@@ -8,7 +8,7 @@ o.io.leap is a Max external object for the Leap Motion Controller, which outputs
   
       Version 0.2
         -IDed Hand and finger data (xyz direction, velocity, finger length / width, tool state)
-        -Hand numbered palm and sphere data (ie. /0/sphereRadius -- gets sphere radius for a single hand)
+        -Hand numbered palm and sphere data (ie. /0/sphereRadius -- gets sphere radius for a first hand)
         
       To-Do:
         -Change hands /0/ and /1/ to leftmost and rightmost, respectively
