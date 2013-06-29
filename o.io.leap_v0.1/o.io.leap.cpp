@@ -85,6 +85,7 @@ void oleap_bang(t_oleap *x)
 	const Leap::HandList hands = frame.hands();
 	const size_t numHands = hands.count();
     
+    
     t_osc_bundle_u *bundle = osc_bundle_u_alloc();//alloc creates memory for and initializes the bundle
     
     
@@ -116,8 +117,15 @@ void oleap_bang(t_oleap *x)
 		// Hand
 		const Leap::Hand &hand = hands[i];
 		const int32_t hand_id = hand.id();
+        
 		const Leap::FingerList &fingers = hand.fingers();
 		const size_t numFingers = fingers.count();
+        
+        //Leap::Hand leftmost = hands.leftmost();
+        //Leap::Hand rightmost = hands.rightmost();
+        
+        char buff[128];
+        
         
         t_osc_message_u *hID = osc_message_u_alloc();
         t_osc_message_u *nFingers = osc_message_u_alloc();
@@ -153,21 +161,20 @@ void oleap_bang(t_oleap *x)
             
             
             /*
-            string names [14]= {“xpos”,”ypos”,”zpos”,”xdir”,”ydir”,”zdir”,”xvel”,”yvel”,”zvel,finger_length”,”istool_mes”};
+             string names [14]= {“xpos”,”ypos”,”zpos”,”xdir”,”ydir”,”zdir”,”xvel”,”yvel”,”zvel,finger_length”,”istool_mes”};
+             
+             for(LOOP OVER FINGERS “J”)
+             {
+             t_osc_message_u *handdata[14];
+             for(int i=0;i<14;i++)
+             {
+             handdata[i]=osc_message_u_alloc();
+             osc_message_u_setAddress(handdata[i], “/”+j.toString()+ ”/” +names[i]);
+             }
+             
+             }
+             */
             
-            for(LOOP OVER FINGERS “J”)
-            {
-                t_osc_message_u *handdata[14];
-                for(int i=0;i<14;i++)
-                {
-                    handdata[i]=osc_message_u_alloc();
-                    osc_message_u_setAddress(handdata[i], “/”+j.toString()+ ”/” +names[i]);
-                }	
-                
-            }
-            */
-            
-            char buff[128];
             
             t_osc_message_u *finger_id_mes = osc_message_u_alloc();
             t_osc_message_u *hand_id_mes = osc_message_u_alloc();
@@ -184,46 +191,46 @@ void oleap_bang(t_oleap *x)
             t_osc_message_u *finger_length = osc_message_u_alloc();
             t_osc_message_u *istool_mes = osc_message_u_alloc();
             
-            sprintf(buff,"/%d/fingerID",j);
+            sprintf(buff,"/%d/%d/fingerID",i,j);
             osc_message_u_setAddress(finger_id_mes, buff);
             
-            sprintf(buff,"/%d/handId",j);
+            sprintf(buff,"/%d/%d/handId",i,j);
             osc_message_u_setAddress(hand_id_mes, buff);
             
-            sprintf(buff,"/%d/xpos",j);
+            sprintf(buff,"/%d/%d/xpos",i,j);
             osc_message_u_setAddress(xpos, buff);
             
-            sprintf(buff,"/%d/ypos",j);
+            sprintf(buff,"/%d/%d/ypos",i,j);
             osc_message_u_setAddress(ypos, buff);
             
-            sprintf(buff,"/%d/zpos",j);
+            sprintf(buff,"/%d/%d/zpos",i,j);
             osc_message_u_setAddress(zpos, buff);
             
-            sprintf(buff,"/%d/xdir",j);
+            sprintf(buff,"/%d/%d/xdir",i,j);
             osc_message_u_setAddress(xdir, buff);
             
-            sprintf(buff,"/%d/ydir",j);
+            sprintf(buff,"/%d/%d/ydir",i,j);
             osc_message_u_setAddress(ydir, buff);
             
-            sprintf(buff,"/%d/zdir",j);
+            sprintf(buff,"/%d/%d/zdir",i,j);
             osc_message_u_setAddress(zdir, buff);
             
-            sprintf(buff,"/%d/xvel",j);
+            sprintf(buff,"/%d/%d/xvel",i,j);
             osc_message_u_setAddress(xvel, buff);
             
-            sprintf(buff,"/%d/yvel",j);
+            sprintf(buff,"/%d/%d/yvel",i,j);
             osc_message_u_setAddress(yvel, buff);
             
-            sprintf(buff,"/%d/zvel",j);
+            sprintf(buff,"/%d/%d/zvel",i,j);
             osc_message_u_setAddress(zvel, buff);
             
-            sprintf(buff,"/%d/finger_width",j);
+            sprintf(buff,"/%d/%d/finger_width",i,j);
             osc_message_u_setAddress(finger_width, buff);
             
-            sprintf(buff,"/%d/finger_length",j);
+            sprintf(buff,"/%d/%d/finger_length",i,j);
             osc_message_u_setAddress(finger_length, buff);
             
-            sprintf(buff,"/%d/is_tool",j);
+            sprintf(buff,"/%d/%d/is_tool",i,j);
             osc_message_u_setAddress(istool_mes, buff);
             
             t_osc_atom_u* fid_atom = osc_atom_u_alloc();
@@ -267,7 +274,7 @@ void oleap_bang(t_oleap *x)
             
             osc_atom_u_setInt32(xvel_atom, velocity.x);
             osc_message_u_appendAtom(xvel, xvel_atom);
-           
+            
             osc_atom_u_setInt32(yvel_atom, velocity.y);
             osc_message_u_appendAtom(yvel, yvel_atom);
             
@@ -279,7 +286,7 @@ void oleap_bang(t_oleap *x)
             
             osc_atom_u_setInt32(flength_atom, length);
             osc_message_u_appendAtom(finger_length, flength_atom);
-     
+            
             osc_atom_u_setInt32(istool_atom, isTool);
             osc_message_u_appendAtom(istool_mes, istool_atom);
             
@@ -299,15 +306,209 @@ void oleap_bang(t_oleap *x)
             osc_bundle_u_addMsg(bundle, istool_mes);
             
 		}
-
-
         
+        
+        const Leap::Vector position = hand.palmPosition();
+        const Leap::Vector direction = hand.direction();
+        const Leap::Vector velocity = hand.palmVelocity();
+        const Leap::Vector normal = hand.palmNormal();
+        const Leap::Vector sphereCenter = hand.sphereCenter();
+        const double sphereRadius = hand.sphereRadius();
+        
+        t_osc_message_u *palm_hand_id = osc_message_u_alloc();
+        t_osc_message_u *palm_frame_id = osc_message_u_alloc();
+        t_osc_message_u *palm_xpos = osc_message_u_alloc();
+        t_osc_message_u *palm_ypos = osc_message_u_alloc();
+        t_osc_message_u *palm_zpos = osc_message_u_alloc();
+        t_osc_message_u *palm_xdir = osc_message_u_alloc();
+        t_osc_message_u *palm_ydir = osc_message_u_alloc();
+        t_osc_message_u *palm_zdir = osc_message_u_alloc();
+        t_osc_message_u *palm_xvel = osc_message_u_alloc();
+        t_osc_message_u *palm_yvel = osc_message_u_alloc();
+        t_osc_message_u *palm_zvel = osc_message_u_alloc();
+        t_osc_message_u *palm_xnormal = osc_message_u_alloc();
+        t_osc_message_u *palm_ynormal = osc_message_u_alloc();
+        t_osc_message_u *palm_znormal = osc_message_u_alloc();
+        
+        //i will get replaced with leftmost or rightmost
+        
+        sprintf(buff,"/%d/palm_hand_id",i);
+        osc_message_u_setAddress(palm_hand_id, buff);
+        
+        sprintf(buff,"/%d/palm_frame_id",i);
+        osc_message_u_setAddress(palm_frame_id, buff);
+        
+        sprintf(buff,"/%d/palm_xpos",i);
+        osc_message_u_setAddress(palm_xpos, buff);
+        
+        sprintf(buff,"/%d/palm_ypos",i);
+        osc_message_u_setAddress(palm_ypos, buff);
+        
+        sprintf(buff,"/%d/palm_zpos",i);
+        osc_message_u_setAddress(palm_zpos, buff);
+        
+        sprintf(buff,"/%d/palm_xdir",i);
+        osc_message_u_setAddress(palm_xdir, buff);
+        
+        sprintf(buff,"/%d/palm_ydir",i);
+        osc_message_u_setAddress(palm_ydir, buff);
+        
+        sprintf(buff,"/%d/palm_zdir",i);
+        osc_message_u_setAddress(palm_zdir, buff);
+        
+        sprintf(buff,"/%d/palm_xvel",i);
+        osc_message_u_setAddress(palm_xvel, buff);
+        
+        sprintf(buff,"/%d/palm_yvel",i);
+        osc_message_u_setAddress(palm_yvel, buff);
+        
+        sprintf(buff,"/%d/palm_zvel",i);
+        osc_message_u_setAddress(palm_zvel, buff);
+        
+        sprintf(buff,"/%d/palm_xnormal",i);
+        osc_message_u_setAddress(palm_xnormal, buff);
+        
+        sprintf(buff,"/%d/palm_ynormal",i);
+        osc_message_u_setAddress(palm_ynormal, buff);
+        
+        sprintf(buff,"/%d/palm_znormal",i);
+        osc_message_u_setAddress(palm_znormal, buff);
+        
+        t_osc_atom_u* palm_hand_id_atom= osc_atom_u_alloc();
+        t_osc_atom_u* palm_frame_id_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_xpos_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_ypos_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_zpos_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_xdir_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_ydir_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_zdir_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_xvel_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_yvel_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_zvel_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_xnormal_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_ynormal_atom = osc_atom_u_alloc();
+        t_osc_atom_u* palm_znormal_atom = osc_atom_u_alloc();
+        
+        osc_atom_u_setInt32(palm_hand_id_atom, hand_id);
+        osc_message_u_appendAtom(palm_hand_id, palm_hand_id_atom);
+        
+        osc_atom_u_setInt32(palm_frame_id_atom, frame_id);
+        osc_message_u_appendAtom(palm_frame_id, palm_frame_id_atom);
+        
+        osc_atom_u_setFloat(palm_xpos_atom, position.x);
+        osc_message_u_appendAtom(palm_xpos, palm_xpos_atom);
+        
+        osc_atom_u_setFloat(palm_ypos_atom, position.y);
+        osc_message_u_appendAtom(palm_ypos, palm_ypos_atom);
+        
+        osc_atom_u_setFloat(palm_zpos_atom, position.z);
+        osc_message_u_appendAtom(palm_zpos, palm_zpos_atom);
+        
+        osc_atom_u_setFloat(palm_xdir_atom, direction.x);
+        osc_message_u_appendAtom(palm_xdir, palm_xdir_atom);
+        
+        osc_atom_u_setFloat(palm_ydir_atom, direction.y);
+        osc_message_u_appendAtom(palm_ydir, palm_ydir_atom);
+        
+        osc_atom_u_setFloat(palm_zdir_atom, direction.z);
+        osc_message_u_appendAtom(palm_zdir, palm_zdir_atom);
+        
+        osc_atom_u_setFloat(palm_xvel_atom, velocity.x);
+        osc_message_u_appendAtom(palm_xvel, palm_xvel_atom);
+        
+        osc_atom_u_setFloat(palm_yvel_atom, velocity.y);
+        osc_message_u_appendAtom(palm_yvel, palm_yvel_atom);
+        
+        osc_atom_u_setFloat(palm_zvel_atom, velocity.z);
+        osc_message_u_appendAtom(palm_zvel, palm_zvel_atom);
+        
+        osc_atom_u_setFloat(palm_xnormal_atom, normal.x);
+        osc_message_u_appendAtom(palm_xnormal, palm_xnormal_atom);
+        
+        osc_atom_u_setFloat(palm_ynormal_atom, normal.y);
+        osc_message_u_appendAtom(palm_ynormal, palm_ynormal_atom);
+        
+        osc_atom_u_setFloat(palm_znormal_atom, normal.z);
+        osc_message_u_appendAtom(palm_znormal, palm_znormal_atom);
+        
+        
+        osc_bundle_u_addMsg(bundle, palm_hand_id);
+        osc_bundle_u_addMsg(bundle, palm_frame_id);
+        osc_bundle_u_addMsg(bundle, palm_xpos);
+        osc_bundle_u_addMsg(bundle, palm_ypos);
+        osc_bundle_u_addMsg(bundle, palm_zpos);
+        osc_bundle_u_addMsg(bundle, palm_xdir);
+        osc_bundle_u_addMsg(bundle, palm_ydir);
+        osc_bundle_u_addMsg(bundle, palm_zdir);
+        osc_bundle_u_addMsg(bundle, palm_xvel);
+        osc_bundle_u_addMsg(bundle, palm_yvel);
+        osc_bundle_u_addMsg(bundle, palm_zvel);
+        osc_bundle_u_addMsg(bundle, palm_xnormal);
+        osc_bundle_u_addMsg(bundle, palm_ynormal);
+        osc_bundle_u_addMsg(bundle, palm_znormal);
+        
+        
+        
+        ////////////////////////////////Sphere data!!!
+        
+        t_osc_message_u *ball_hand_id = osc_message_u_alloc();
+        t_osc_message_u *ball_frame_id = osc_message_u_alloc();
+        t_osc_message_u *ball_sphereCenterx = osc_message_u_alloc();
+        t_osc_message_u *ball_sphereCentery = osc_message_u_alloc();
+        t_osc_message_u *ball_sphereCenterz = osc_message_u_alloc();
+        t_osc_message_u *ball_sphereRadius = osc_message_u_alloc();
+        
+        sprintf(buff,"/%d/ball_hand_id",i);
+        osc_message_u_setAddress(ball_hand_id, buff);
+        
+        sprintf(buff,"/%d/ball_frame_id",i);
+        osc_message_u_setAddress(ball_frame_id, buff);
+        
+        sprintf(buff,"/%d/ball_sphereCenterx",i);
+        osc_message_u_setAddress(ball_sphereCenterx, buff);
+        
+        sprintf(buff,"/%d/ball_sphereCentery",i);
+        osc_message_u_setAddress(ball_sphereCentery, buff);
+        
+        sprintf(buff,"/%d/ball_sphereCenterz",i);
+        osc_message_u_setAddress(ball_sphereCenterz, buff);
+        
+        sprintf(buff,"/%d/ball_sphereRadius",i);
+        osc_message_u_setAddress(ball_sphereRadius, buff);
+        
+        t_osc_atom_u* ball_hand_id_atom= osc_atom_u_alloc();
+        t_osc_atom_u* ball_frame_id_atom = osc_atom_u_alloc();
+        t_osc_atom_u* ball_sphereCenterx_atom = osc_atom_u_alloc();
+        t_osc_atom_u* ball_sphereCentery_atom = osc_atom_u_alloc();
+        t_osc_atom_u* ball_sphereCenterz_atom = osc_atom_u_alloc();
+        t_osc_atom_u* ball_sphereRadius_atom = osc_atom_u_alloc();
+        
+        osc_atom_u_setFloat(ball_hand_id_atom, hand_id);
+        osc_message_u_appendAtom(ball_hand_id, ball_hand_id_atom);
+        
+        osc_atom_u_setFloat(ball_frame_id_atom, frame_id);
+        osc_message_u_appendAtom(ball_frame_id, ball_frame_id_atom);
+        
+        osc_atom_u_setFloat(ball_sphereCenterx_atom, sphereCenter.x);
+        osc_message_u_appendAtom(ball_sphereCenterx, ball_sphereCenterx_atom);
+        
+        osc_atom_u_setFloat(ball_sphereCentery_atom, sphereCenter.y);
+        osc_message_u_appendAtom(ball_sphereCentery, ball_sphereCentery_atom);
+        
+        osc_atom_u_setFloat(ball_sphereCenterz_atom, sphereCenter.z);
+        osc_message_u_appendAtom(ball_sphereCenterz, ball_sphereCenterz_atom);
+        
+        osc_atom_u_setFloat(ball_sphereRadius_atom, sphereRadius);
+        osc_message_u_appendAtom(ball_sphereRadius, ball_sphereRadius_atom);
+        
+        osc_bundle_u_addMsg(bundle, ball_hand_id);
+        osc_bundle_u_addMsg(bundle, ball_frame_id);
+        osc_bundle_u_addMsg(bundle, ball_sphereCenterx);
+        osc_bundle_u_addMsg(bundle, ball_sphereCentery);
+        osc_bundle_u_addMsg(bundle, ball_sphereCenterz);
+        osc_bundle_u_addMsg(bundle, ball_sphereRadius);
         
     }
-
-
-    
-    //osc_message_u_appendFloat(msg, 15.0);
     
     long bytes = 0;//length of byte array
     char* pointer = NULL;
@@ -323,7 +524,7 @@ void oleap_bang(t_oleap *x)
     osc_bundle_u_free(bundle);//get rid of stuff in osc message
     osc_mem_free(pointer);//marks pointer address as being free (clear if you want to keep using same)
     
-
+    
 }
 
 void *oleap_new(t_symbol *s, long argc, t_atom *argv)
@@ -337,7 +538,7 @@ void *oleap_new(t_symbol *s, long argc, t_atom *argv)
 		x->frame_id_save = 0;
 		x->outlet = outlet_new(x, NULL);
 		
-		// Create a controller 
+		// Create a controller
 		x->leap = new Leap::Controller;
 	}
 	return (x);
