@@ -6,9 +6,11 @@ o.io.leap is a Max external object for the Leap Motion Controller, which outputs
   Also requires: Max SDK http://cycling74.com/products/sdk/ 
    Leap SDK https://leapmotion.com/developers
   
-      Version 0.2
+      Version 0.3
         -IDed Hand and finger data (xyz direction, velocity, finger length / width, tool state)
-        -Hand numbered palm and sphere data (ie. /0/sphereRadius -- gets sphere radius for a first hand)
+        -Hand numbered palm and sphere data (ie. hand/1/sphere/radius -- gets sphere radius for a first hand)
+        -Hand Id'ed pitch, yaw, roll
+        -More intuitive name-space design
         
       To-Do:
         -Change hands /0/ and /1/ to leftmost and rightmost, respectively
