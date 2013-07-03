@@ -1,1 +1,0 @@
-libyywrap.o libyywrap.o: libyywrap.c

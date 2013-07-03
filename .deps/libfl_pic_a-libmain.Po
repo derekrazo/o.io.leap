@@ -1,1 +1,0 @@
-libfl_pic_a-libmain.o libfl_pic_a-libmain.o: libmain.c
