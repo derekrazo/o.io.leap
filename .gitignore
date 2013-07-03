@@ -5,6 +5,12 @@
 *.tar.gz
 *.zip
 *.def
+*.gitignore
+*.indent.pro
+*.prev-version
+*.tarball-version
+*.version
+*.deps
 #*#
 xcuserdata
 .DS_Store
