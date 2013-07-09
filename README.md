@@ -13,6 +13,7 @@ o.io.leap is a Max external object for the Leap Motion Controller, which outputs
         -More intuitive name-space design
         
       To-Do:
-        -Change hands /0/ and /1/ to leftmost and rightmost, respectively
+        -Add leftmost / rightmost
+        -Add mathematical data from leap API
         -Add more leap 8.0 features 
       
