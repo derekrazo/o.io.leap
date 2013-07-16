@@ -1,1 +1,0 @@
-libfl_pic_a-libyywrap.o libfl_pic_a-libyywrap.o: libyywrap.c
