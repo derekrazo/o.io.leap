@@ -11,7 +11,6 @@ o.io.leap is a Max external object for the Leap Motion Controller, which outputs
         -can now access handlist directly or hands by ordinal coordinates (leftmost,rightmost,frontmost,backmost)
         -greatly simplifed code for readability and to make adding new features faster
         -added /distance/from + /distance/to for all fingers and hands
-        -Added leftmost + rightmost + backmost + frontmost
         -added support for touch zones
         -updated namespace
 
