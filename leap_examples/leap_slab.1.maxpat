@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 25.0, 69.0, 275.0, 379.0 ],
+		"rect" : [ 32.0, 85.0, 1149.0, 756.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -27,6 +27,78 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 581.0, 292.0, 150.0, 20.0 ],
+					"text" : "receive~ from_leap_res_2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-18",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 537.0, 312.0, 150.0, 20.0 ],
+					"text" : "receive~ from_leap_res_1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "drums-2.1" ],
+					"id" : "obj-11",
+					"maxclass" : "bpatcher",
+					"name" : "dClip.2.3x_auto.maxpat",
+					"numinlets" : 12,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "float", "" ],
+					"patching_rect" : [ 372.0, 382.916504, 167.0, 180.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 372.0, 382.916504, 162.0, 180.0 ],
+					"varname" : "drums-11[1]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "FullPacket" ],
+					"patching_rect" : [ 379.0, 58.0, 120.0, 20.0 ],
+					"text" : "o.route /hand/1/pitch"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 6,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 235.0, 256.0, 109.0, 20.0 ],
+					"text" : "scale -1. 1. 0.1 0.5"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -65,7 +137,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 530.0, 181.0, 50.0, 31.0 ],
-					"text" : "-318.128845"
+					"text" : "72.952766"
 				}
 
 			}
@@ -149,7 +221,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 365.0, 181.0, 50.0, 18.0 ],
-					"text" : "0."
+					"text" : "2."
 				}
 
 			}
@@ -202,8 +274,8 @@
 					"numinlets" : 6,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 127.0, 177.0, 123.0, 20.0 ],
-					"text" : "scale -400 400 0.1 2."
+					"patching_rect" : [ 127.0, 177.0, 126.0, 20.0 ],
+					"text" : "scale -1. 1. 0.25 1.33."
 				}
 
 			}
@@ -264,7 +336,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 83.0, 177.0, 33.0, 45.0 ],
-					"text" : "-42.345058"
+					"text" : "-0.249078"
 				}
 
 			}
@@ -277,8 +349,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "FullPacket" ],
-					"patching_rect" : [ 83.0, 138.0, 175.0, 20.0 ],
-					"text" : "o.route /hand/1/palm/position/x"
+					"patching_rect" : [ 218.0, 58.0, 111.0, 20.0 ],
+					"text" : "o.route /hand/1/roll"
 				}
 
 			}
@@ -320,7 +392,9 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 83.0, 25.0, 20.0, 20.0 ]
+					"patching_rect" : [ 83.0, 24.0, 20.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 83.0, 24.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -340,6 +414,15 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-14", 0 ],
 					"disabled" : 0,
@@ -368,10 +451,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-26", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-13", 0 ]
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-82", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
@@ -408,6 +500,69 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 3 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-19", 0 ]
 				}
 
 			}
@@ -494,7 +649,25 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-26", 5 ],
+					"destination" : [ "obj-26", 4 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 4 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 6 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
@@ -531,40 +704,48 @@
  ],
 		"parameters" : 		{
 			"obj-26::obj-17" : [ "gain~[14]", "gain~", 0 ],
-			"obj-26::obj-123" : [ "gain~[13]", "gain~[2]", 0 ],
-			"obj-26::obj-52" : [ "toggle[24]", "toggle", 0 ],
-			"obj-26::obj-18" : [ "flonum[19]", "flonum[2]", 0 ],
+			"obj-26::obj-55" : [ "flonum[20]", "flonum[1]", 0 ],
 			"obj-26::obj-48" : [ "flonum[21]", "flonum", 0 ],
 			"obj-26::obj-19" : [ "toggle[23]", "toggle[1]", 0 ],
+			"obj-26::obj-123" : [ "gain~[13]", "gain~[2]", 0 ],
+			"obj-26::obj-52" : [ "toggle[24]", "toggle", 0 ],
+			"obj-11::obj-55" : [ "flonum[3]", "flonum[1]", 0 ],
 			"obj-26::obj-2" : [ "toggle[22]", "toggle[10]", 0 ],
-			"obj-26::obj-55" : [ "flonum[20]", "flonum[1]", 0 ]
+			"obj-26::obj-18" : [ "flonum[19]", "flonum[2]", 0 ],
+			"obj-11::obj-19" : [ "toggle[3]", "toggle[1]", 0 ],
+			"obj-11::obj-18" : [ "flonum[1]", "flonum[2]", 0 ],
+			"obj-11::obj-2" : [ "toggle[1]", "toggle[10]", 0 ],
+			"obj-11::obj-52" : [ "toggle[2]", "toggle", 0 ],
+			"obj-11::obj-48" : [ "flonum[2]", "flonum", 0 ],
+			"obj-11::obj-123" : [ "gain~[15]", "gain~[2]", 0 ],
+			"obj-11::obj-17" : [ "gain~[16]", "gain~", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
 				"name" : "dClip.2.3x_auto.maxpat",
-				"bootpath" : "/Users/derekrazo/Documents/Max_Enabled/Stuff_for_searchpath/Extras_yo",
-				"patcherrelativepath" : "../Extras_yo",
+				"bootpath" : "/Users/derekrazo/Desktop/Dev/github/o.io.leap/leap_examples",
+				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "grooveduck2.maxpat",
 				"bootpath" : "/Applications/Max6/examples/sequencing-looping/audio-rate-sequencing-looping/lib",
-				"patcherrelativepath" : "../../../../../../Applications/Max6/examples/sequencing-looping/audio-rate-sequencing-looping/lib",
+				"patcherrelativepath" : "../../../../../../../Applications/Max6/examples/sequencing-looping/audio-rate-sequencing-looping/lib",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "fft.maxpat",
 				"bootpath" : "/Users/derekrazo/Documents/Max_Enabled/Stuff_for_searchpath/Extras_yo/free elastic",
-				"patcherrelativepath" : "../Extras_yo/free elastic",
+				"patcherrelativepath" : "../../../../../Documents/Max_Enabled/Stuff_for_searchpath/Extras_yo/free elastic",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "closeness.js",
 				"bootpath" : "/Users/derekrazo/Documents/Max_Enabled/Stuff_for_searchpath",
-				"patcherrelativepath" : "",
+				"patcherrelativepath" : "../../../../../Documents/Max_Enabled/Stuff_for_searchpath",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
