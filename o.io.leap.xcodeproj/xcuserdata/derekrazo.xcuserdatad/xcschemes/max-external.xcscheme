@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
-               BuildableName = "o.io.leap.bundle"
+               BuildableName = "o.io.leap.mxo"
                BlueprintName = "max-external"
                ReferencedContainer = "container:o.io.leap.xcodeproj">
             </BuildableReference>
